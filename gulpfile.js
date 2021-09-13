@@ -14,7 +14,7 @@ const uglify = require("gulp-uglify");
 const imagemin = require("gulp-imagemin");
 
 
-//копіювання HTML файлів в папку dist
+
 function task_html() {
     return src("app/*.html")
         .pipe(dest("dist"));
@@ -22,7 +22,7 @@ function task_html() {
 
 exports.html = task_html
 
-//об'єднання, компіляція Sass в CSS, додавання префіксів і подальша мінімізація коду
+
 function task_sass() {
     return src("app/sass/*.sass")
         .pipe(concat('styles.sass'))
@@ -38,21 +38,21 @@ function task_sass() {
 
 exports.sass = task_sass
 
-//об'єднання і стиснення JS-файлів
+
 function task_scripts() {
-    return src("app/js/*.js") //вихідна директорія файлів
-        .pipe(concat('scripts.js')) // конкатенація js-файлів в один
-        .pipe(uglify()) //стиснення коду
-        .pipe(rename({ suffix: '.min' })) //перейменування файлу з
-        //приставкою .min
-        .pipe(dest("dist/js")); // директорія продакшена
+    return src("app/js/*.js") 
+        .pipe(concat('scripts.js')) 
+        .pipe(uglify()) 
+        .pipe(rename({ suffix: '.min' })) 
+        
+        .pipe(dest("dist/js")); 
 }
 
 
 exports.scripts = task_scripts
 
 
-//cтисканнязображень
+
 function task_imgs() {
     return src("app/img/*.+(jpg|jpeg|png|gif)")
         .pipe(imagemin({
@@ -65,7 +65,7 @@ function task_imgs() {
 
 exports.imgs = task_imgs
 
-//відстежування за змінами у файлах
+
 
 function task_watch() {
     watch("app/*.html", task_html);
@@ -76,5 +76,5 @@ function task_watch() {
 
 exports.watch = task_watch
 
-//Запуск тасків за замовчуванням
+
 exports.build = series(task_html, task_sass, task_scripts, task_imgs, task_watch);
